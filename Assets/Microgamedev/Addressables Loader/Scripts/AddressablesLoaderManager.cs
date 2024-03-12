@@ -92,6 +92,10 @@ namespace com.microgamedev.AddressablesLoader
             if (SpritePreDownloadQue.Count == 0) return;
 
             DownloadContents spriteDownloader = gameObject.AddComponent<DownloadContents>();
+            if (OnProgressUpdated != null)
+                spriteDownloader.OnProgressUpdated += OnProgressUpdated;
+            if (OnContentsLoaded != null)
+                spriteDownloader.OnContentsLoaded += OnContentsLoaded;
             foreach (KeyValuePair<AssetReference, ContentDownloadBehavior> SpritePreDownloadQueItem in SpritePreDownloadQue)
             {
                 spriteDownloader.AddDownloadContent(SpritePreDownloadQueItem.Value);
@@ -191,11 +195,15 @@ namespace com.microgamedev.AddressablesLoader
             }
         }
 
-        public void StartQueLoadGameObjectDownload()
+        public void StartQueLoadGameObjectDownload(Action<float> OnProgressUpdated = null, Action<List<ContentDownloadData>> OnContentsLoaded = null)
         {
             if (GameObjectPreDownloadQue.Count == 0) return;
 
             DownloadContents GameObjectDownloader = gameObject.AddComponent<DownloadContents>();
+            if (OnProgressUpdated != null)
+                GameObjectDownloader.OnProgressUpdated += OnProgressUpdated;
+            if (OnContentsLoaded != null)
+                GameObjectDownloader.OnContentsLoaded += OnContentsLoaded;
             foreach (KeyValuePair<AssetReference, ContentDownloadBehavior> GameObjectPreDownloadQueItem in GameObjectPreDownloadQue)
             {
                 GameObjectDownloader.AddDownloadContent(GameObjectPreDownloadQueItem.Value);
