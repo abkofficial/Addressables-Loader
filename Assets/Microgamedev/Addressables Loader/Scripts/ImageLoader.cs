@@ -40,11 +40,13 @@ public class ImageLoader : MonoBehaviour
 
     private void OnImageLoaded(ContentDownloadData contentDownloadData)
     {
-        throw new NotImplementedException();
+        imageComponent.sprite = (Sprite)contentDownloadData.Content;
+        StartCoroutine(Co_EnableImage());
     }
 
     private IEnumerator Co_EnableImage()
     {
+        loadingText.text = "";
         while (true)
         {
             yield return new WaitForEndOfFrame();
