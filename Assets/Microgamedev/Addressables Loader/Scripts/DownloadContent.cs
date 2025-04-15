@@ -31,7 +31,7 @@ namespace com.microgamedev.AddressablesLoader
 
             while (asyncOperationHandle.Status == AsyncOperationStatus.None)
             {
-                contentDownloadBehavior.progress = Mathf.Round((float)asyncOperationHandle.PercentComplete * 100f);
+                contentDownloadBehavior.progress = (int)Mathf.Round((float)asyncOperationHandle.PercentComplete * 100f);
                 contentDownloadBehavior.UpdateProgress();
                 yield return null;
             }
@@ -46,7 +46,7 @@ namespace com.microgamedev.AddressablesLoader
                 yield break;
             }
 
-            contentDownloadBehavior.progress = 100f;
+            contentDownloadBehavior.progress = 100;
             contentDownloadBehavior.UpdateProgress();
 
             contentDownloadBehavior.Content = asyncOperationHandle.Result;

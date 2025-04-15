@@ -82,7 +82,7 @@ namespace com.microgamedev.AddressablesLoader
                 foreach (KeyValuePair<AssetReference, AsyncOperationHandle<Object>> item in operationDictionary)
                 {
                     float itemPercentComplete = Mathf.Round((float)item.Value.PercentComplete * 100f);
-                    contentDownloadBehaviorsDic[item.Key].progress = itemPercentComplete;
+                    contentDownloadBehaviorsDic[item.Key].progress = (int)itemPercentComplete;
                     contentDownloadBehaviorsDic[item.Key].UpdateProgress();
                     unCompletePercentage += 100f - itemPercentComplete;
 

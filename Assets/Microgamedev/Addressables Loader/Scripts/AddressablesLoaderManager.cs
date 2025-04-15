@@ -32,7 +32,7 @@ namespace com.microgamedev.AddressablesLoader
         }
 
         #region SpriteLoadFunctions
-        public void LoadImage(AssetReference assetReference, Action<float> OnProgressUpdated, Action<ContentDownloadData> OnContentLoaded)
+        public void LoadImage(AssetReference assetReference, Action<int, string> OnProgressUpdated, Action<ContentDownloadData> OnContentLoaded)
         {
             if (TriggerLoaddedSpriteIfInList(assetReference, OnProgressUpdated, OnContentLoaded)) return;
 
@@ -48,7 +48,7 @@ namespace com.microgamedev.AddressablesLoader
             SpriteDownloadQue.Add(assetReference, contentDownloadBehavior);
         }
 
-        public void QueLoadImage(AssetReference assetReference, Action<float> OnProgressUpdated, Action<ContentDownloadData> OnContentLoaded)
+        public void QueLoadImage(AssetReference assetReference, Action<int, string> OnProgressUpdated, Action<ContentDownloadData> OnContentLoaded)
         {
             if (TriggerLoaddedSpriteIfInList(assetReference, OnProgressUpdated, OnContentLoaded)) return;
 
@@ -113,7 +113,7 @@ namespace com.microgamedev.AddressablesLoader
             SpritePreDownloadQue.Clear();
         }
 
-        private bool TriggerLoaddedSpriteIfInList(AssetReference assetReference, Action<float> OnProgressUpdated, Action<ContentDownloadData> OnContentLoaded)
+        private bool TriggerLoaddedSpriteIfInList(AssetReference assetReference, Action<int, string> OnProgressUpdated, Action<ContentDownloadData> OnContentLoaded)
         {
 
             if (SpritePreDownloadQue.ContainsKey(assetReference))
@@ -140,7 +140,7 @@ namespace com.microgamedev.AddressablesLoader
         #endregion SpriteLoadFunctions
 
         #region GameObjectLoadFunctions
-        public void LoadGameObject(AssetReference assetReference, Action<float> OnProgressUpdated, Action<ContentDownloadData> OnContentLoaded)
+        public void LoadGameObject(AssetReference assetReference, Action<int, string> OnProgressUpdated, Action<ContentDownloadData> OnContentLoaded)
         {
             if (TriggerLoaddedGameObjectIfInList(assetReference, OnProgressUpdated, OnContentLoaded)) return;
 
@@ -156,7 +156,7 @@ namespace com.microgamedev.AddressablesLoader
             GameObjectDownloadQue.Add(assetReference, contentDownloadBehavior);
         }
 
-        public void QueLoadGameObject(AssetReference assetReference, Action<float> OnProgressUpdated, Action<ContentDownloadData> OnContentLoaded)
+        public void QueLoadGameObject(AssetReference assetReference, Action<int, string> OnProgressUpdated, Action<ContentDownloadData> OnContentLoaded)
         {
             if (TriggerLoaddedGameObjectIfInList(assetReference, OnProgressUpdated, OnContentLoaded)) return;
 
@@ -221,7 +221,7 @@ namespace com.microgamedev.AddressablesLoader
             GameObjectPreDownloadQue.Clear();
         }
 
-        private bool TriggerLoaddedGameObjectIfInList(AssetReference assetReference, Action<float> OnProgressUpdated, Action<ContentDownloadData> OnContentLoaded)
+        private bool TriggerLoaddedGameObjectIfInList(AssetReference assetReference, Action<int, string> OnProgressUpdated, Action<ContentDownloadData> OnContentLoaded)
         {
 
             if (GameObjectPreDownloadQue.ContainsKey(assetReference))
@@ -298,9 +298,9 @@ namespace com.microgamedev.AddressablesLoader
     {
         public event Action<ContentDownloadData> OnContentLoaded;
         public event Action<ContentDownloadData> OnContentNull;
-        public event Action<float> OnProgressUpdated;
+        public event Action<int, string> OnProgressUpdated;
 
-        public float progress;
+        public int progress;
 
         public AssetReference assetReference;
         private Object _content;
@@ -344,7 +344,7 @@ namespace com.microgamedev.AddressablesLoader
 
         protected void UpdateProgress()
         {
-            OnProgressUpdated?.Invoke(progress);
+            OnProgressUpdated?.Invoke(progress, assetReference.AssetGUID);
 
             if (progress == 100f)
             {
