@@ -17,11 +17,14 @@ public class ImageLoader : MonoBehaviour
     [SerializeField] Color loadingColor;
     [SerializeField] Color loadedColor = Color.white;
     [SerializeField] AssetReference imageToLoad;
+
+    int countdown = 30;
     private void Awake()
     {
         AddressablesLoaderManager.instance.LoadImage(imageToLoad, OnImageLoading, OnImageLoaded);
 
         imageComponent.color = loadingColor;
+        countdown = 30;
     }
 
     private void OnImageLoading(int arg1, string arg2)
@@ -47,6 +50,14 @@ public class ImageLoader : MonoBehaviour
             yield return new WaitForEndOfFrame();
             Color newColor = Color.Lerp(imageComponent.color, loadedColor, Time.deltaTime);
             imageComponent.color = newColor;
+
+            countdown--;
+
+            if (countdown <= 0)
+            {
+                imageComponent.color = loadedColor;
+                break;
+            }
         }
     }
 }
