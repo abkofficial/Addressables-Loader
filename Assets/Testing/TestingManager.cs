@@ -37,7 +37,7 @@ public class TestingManager : MonoBehaviour
     private void HandleLoadSingleSpriteBtn()
     {
         int index = Random.Range(0, spriteRefList.Count);
-        AddressablesLoaderManager.instance.LoadImage(spriteRefList[index], (percentage) => { Debug.Log($"Loading {spriteRefList[index].SubObjectName}: {percentage}"); }, AddSpriteToGame);
+        AddressablesLoaderManager.instance.LoadImage(spriteRefList[index], (percentage, progressID) => { Debug.Log($"Loading {spriteRefList[index].SubObjectName}: {percentage} of {progressID}"); }, AddSpriteToGame);
     }
 
     private void HandleLoadMultipleSpriteBtn()
@@ -45,14 +45,14 @@ public class TestingManager : MonoBehaviour
         for (int i = 0; i < spriteRefList.Count; i++)
         {
             int index = i;
-            AddressablesLoaderManager.instance.QueLoadImage(spriteRefList[index], (percentage) => { Debug.Log($"Loading {spriteRefList[index].SubObjectName}: {percentage}"); }, AddSpriteToGame);
+            AddressablesLoaderManager.instance.QueLoadImage(spriteRefList[index], (percentage, progressID) => { Debug.Log($"Loading {spriteRefList[index].SubObjectName}: {percentage} of {progressID}"); }, AddSpriteToGame);
         }
         AddressablesLoaderManager.instance.StartQueLoadSpriteDownload();
     }
     private void HandleLoadSingleGameObjectBtn()
     {
         int index = Random.Range(0, gameObjectRefList.Count);
-        AddressablesLoaderManager.instance.LoadGameObject(gameObjectRefList[index], (percentage) => { Debug.Log($"Loading {gameObjectRefList[index].SubObjectName}: {percentage}"); }, AddGameObjectToGame);
+        AddressablesLoaderManager.instance.LoadGameObject(gameObjectRefList[index], (percentage, progressID) => { Debug.Log($"Loading {gameObjectRefList[index].SubObjectName}: {percentage} of {progressID}"); }, AddGameObjectToGame);
     }
 
     private void HandleLoadMultipleGameObjectBtn()
@@ -60,7 +60,7 @@ public class TestingManager : MonoBehaviour
         for (int i = 0; i < gameObjectRefList.Count; i++)
         {
             int index = i;
-            AddressablesLoaderManager.instance.QueLoadGameObject(gameObjectRefList[index], (percentage) => { Debug.Log($"Loading {gameObjectRefList[index].SubObjectName}: {percentage}"); }, AddGameObjectToGame);
+            AddressablesLoaderManager.instance.QueLoadGameObject(gameObjectRefList[index], (percentage, progressID) => { Debug.Log($"Loading {gameObjectRefList[index].SubObjectName}: {percentage} of {progressID}"); }, AddGameObjectToGame);
         }
         AddressablesLoaderManager.instance.StartQueLoadGameObjectDownload();
     }
